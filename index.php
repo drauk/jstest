@@ -1,6 +1,6 @@
 <?php
-// http/extra.topology.org/jstest/index.php   2017-12-3   Alan U. Kennington.
-// $Id$
+// http/extra.topology.org/jstest/index.php   2017-12-10   Alan U. Kennington.
+// $Id: http/extra.topology.org/jstest/index.php 6d3b349aaf 2017-12-10 08:37:12Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
 <html lang=\"en\"><head>
@@ -39,10 +39,19 @@ Click the following button to test the alert-button pop-up.<br>
 <button type=\"button\" onclick='alert(\"alert button\");'>alert button
 test</button><br>
 
+<br>
+Click the following button to test the confirm-button pop-up.<br>
+<button type=\"button\" onclick='confirm_test();'>confirm-button
+test</button><br>
+confirm-test output: <span id=\"confirm1output\"></span><br>
+
+<br>
+Click the following button to test the prompt-button pop-up.<br>
+<button type=\"button\" onclick='prompt_test();'>prompt-button test</button><br>
+prompt-test output: <span id=\"prompt1output\"></span><br>
+
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
-<span id=\"text1\">original text 1</span><br>
-
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").innerHTML
 = \"changed text 1\";'>change text 1</button><br>
@@ -50,6 +59,8 @@ onclick='document.getElementById(\"text1\").innerHTML
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").innerHTML
 = \"original text 1\";'>restore text 1</button><br>
+
+<span id=\"text1\">original text 1</span><br>
 
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").style.fontSize = \"10px\";'>text 1
@@ -75,17 +86,17 @@ onclick='set_wh();'>set wh</button><br>
 <span id=\"date1\">date 1</span><br>
 
 <button type=\"button\" onclick='document.getElementById(\"date1\").innerHTML =
-Date();'>set date 1</button>
+escapeHTML(Date());'>set date 1</button>
 (reset by each click)<br>
 
 <span id=\"dateUTC\">date UTC</span><br>
 
 <button type=\"button\" onclick='document.getElementById(\"dateUTC\").innerHTML
-= date0.toUTCString();'>set date UTC</button>
+= escapeHTML(date0.toUTCString());'>set date UTC</button>
 (set once at beginning of script)<br>
 
 <button type=\"button\"
-onclick='this.innerHTML=Date();'>get date</button><br>
+onclick='this.innerHTML=escapeHTML(Date());'>get date</button><br>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -126,10 +137,13 @@ Field 2: <input type=\"text\" name=\"field2\"> must be non-empty<br>
 <p><hr>
 Test the limits from 1 to 12 for a numerical input.<br>
 Returns empty string with Opera 12.16 (2013).<br>
-Returns a meaningful error with Chrome 12.0.742.112 (2011).<br>
+Returns meaningful error message with:
+Chrome 12.0.742.112 (2011),
+Firefox 57.0.1 (2017).<br>
 <input id=\"input1\" type=\"number\" min=\"1\" max=\"12\" required>
 <button onclick=\"input1check()\">Enter</button><br>
-<span id=\"input1output\">Output</span>
+Output: <span id=\"input1output\">[not yet set]</span><br>
+Validity: <span id=\"input1validity\">[not yet set]</span><br>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>

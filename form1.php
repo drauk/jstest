@@ -1,6 +1,6 @@
 <?php
 // http/extra.topology.org/jstest/form1.php   2017-11-12   Alan U. Kennington.
-// $Id$
+// $Id: http/extra.topology.org/jstest/form1.php 445c3d675d 2017-11-12 14:05:19Z Alan U. Kennington $
 
 // Substitute for the old import_request_variables("p") function (POST).
 //------------------------------//
