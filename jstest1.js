@@ -1,5 +1,5 @@
-// http/extra.topology.org/jstest/jstest1.js   2017-12-10   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/jstest1.js ba5b59c5e4 2017-12-10 10:39:41Z Alan U. Kennington $
+// http/extra.topology.org/jstest/jstest1.js   2017-12-11   Alan U. Kennington.
+// $Id: http/extra.topology.org/jstest/jstest1.js 06812be459 2017-12-10 13:19:58Z Alan U. Kennington $
 // Some Javascript functions.
 // This is totally rubbish test-code, written in haste.
 // Please ignore the code quality!!
@@ -15,6 +15,7 @@ test_slice
 body_onload
 form1valid
 input1check
+window_prop_list
 -------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------
@@ -87,38 +88,25 @@ alert("Found str2 = \"" + str2 + "\", str3 = \"" + str3 + "\"");
 //----------------------//
 function body_onload() {
 document.getElementById("js_okay").innerHTML = "Javascript is on.";
-document.getElementById("js_appCodeName").innerHTML =
- "<tt>" + escapeHTML(navigator.appCodeName) + "</tt>";
-document.getElementById("js_appName").innerHTML =
- "<tt>" + escapeHTML(navigator.appName) + "</tt>";
-document.getElementById("js_appVersion").innerHTML =
- "<tt>" + escapeHTML(navigator.appVersion) + "</tt>";
 
-// cookieEnabled is boolean.
-document.getElementById("js_cookieEnabled").innerHTML =
- "<tt>" + escapeHTML(navigator.cookieEnabled) + "</tt>";
-
-// geolocation is a Geolocation object.
-document.getElementById("js_geolocation").innerHTML =
- "<tt>" + escapeHTML(navigator.geolocation) + "</tt>";
-
-document.getElementById("js_language").innerHTML =
- "<tt>" + escapeHTML(navigator.language) + "</tt>";
-
-// onLine is boolean.
-document.getElementById("js_onLine").innerHTML =
- "<tt>" + escapeHTML(navigator.onLine) + "</tt>";
-
-document.getElementById("js_platform").innerHTML =
- "<tt>" + escapeHTML(navigator.platform) + "</tt>";
-
-// Could be undefined.
-document.getElementById("js_product").innerHTML =
- "<tt>" + escapeHTML(navigator.product) + "</tt>";
-
-document.getElementById("js_userAgent").innerHTML =
- "<tt>" + escapeHTML(navigator.userAgent) + "</tt>";
-
+var js_props = [
+    "appCodeName",
+    "appName",
+    "appVersion",
+    "cookieEnabled",
+    "geolocation",
+    "language",
+    "onLine",
+    "platform",
+    "product",
+    "userAgent"
+    ];
+var n_js_props = js_props.length;
+for (var i = 0; i < n_js_props; i += 1) {
+    document.getElementById("js_" + js_props[i]).innerHTML =
+     "<tt>" + escapeHTML(navigator[js_props[i]]) + "</tt>";
+    }
+// "JavaEnabled" is a method.
 document.getElementById("js_javaEnabled").innerHTML =
  "<tt>" + escapeHTML(navigator.javaEnabled()) + "</tt>";
 }
@@ -159,46 +147,70 @@ if (object1.checkValidity() == false) {
 else {
     object1output.innerHTML = "[success]";
     }
-// This should really be a loop of some kind.
+// Show the validity parameter(s).
 object1validity.innerHTML = "";
-if (object1.validity.customError) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "customError";
+var v_params = [
+    "customError",
+    "patternMismatch",
+    "rangeOverflow",
+    "rangeUnderflow",
+    "tooLong",
+    "typeMismatch",
+    "valueMissing",
+    "valid"
+    ];
+var n_v_params = v_params.length;
+for (var i = 0; i < n_v_params; i += 1) {
+    // Assume that all of the properties are boolean.
+    if (object1.validity[v_params[i]]) {
+        if (object1validity.innerHTML != "")
+            object1validity.innerHTML += ", ";
+        object1validity.innerHTML += v_params[i];
+        }
     }
-if (object1.validity.patternMismatch) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "patternMismatch";
+}
+
+//----------------------//
+//   window_prop_list   //
+//----------------------//
+function window_prop_list() {
+var wind_props = [
+    "closed",
+    "defaultStatus",
+    "document",
+    "frameElement",
+    "frames",
+    "history",
+    "innerHeight",
+    "innerWidth",
+    "length",
+    "localStorage",
+    "location",
+    "name",
+    "navigator",
+    "opener",
+    "outerHeight",
+    "outerWidth",
+    "pageXOffset",
+    "pageYOffset",
+    "parent",
+    "screen",
+    "screenLeft",
+    "screenTop",
+    "screenX",
+    "screenY",
+    "sessionStorage",
+    "scrollX",
+    "scrollY",
+    "self",
+    "status",
+    "top"
+    ];
+var n_wind_props = wind_props.length;
+var str_wind_props = "";
+for (var i = 0; i < n_wind_props; i += 1) {
+    str_wind_props += wind_props[i] + ": " + escapeHTML(window[wind_props[i]])
+        + "<br>";
     }
-if (object1.validity.rangeOverflow) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "rangeOverflow";
-    }
-if (object1.validity.rangeUnderflow) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "rangeUnderflow";
-    }
-if (object1.validity.tooLong) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "tooLong";
-    }
-if (object1.validity.typeMismatch) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "typeMismatch";
-    }
-if (object1.validity.valueMissing) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "valueMissing";
-    }
-if (object1.validity.valid) {
-    if (object1validity.innerHTML != "")
-        object1validity.innerHTML += ", ";
-    object1validity.innerHTML += "valid";
-    }
+return str_wind_props;
 }

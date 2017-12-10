@@ -1,6 +1,6 @@
 <?php
 // http/extra.topology.org/jstest/index.php   2017-12-10   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/index.php ba5b59c5e4 2017-12-10 10:39:41Z Alan U. Kennington $
+// $Id: http/extra.topology.org/jstest/index.php 06812be459 2017-12-10 13:19:58Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
 <html lang=\"en\"><head>
@@ -99,9 +99,11 @@ width/height.<br>
 <button type=\"button\"
 onclick='set_wh();'>set wh</button><br>
 
-Screen: <span id=\"wh_screen2\">screen w/h</span><br>
+Screen dimensions: <span id=\"wh_screen2\">screen w/h</span><br>
 
-Window: <span id=\"wh_window2\">window w/h</span><br>
+Window dimensions: <span id=\"wh_window2\">window w/h</span><br>
+
+Window properties: <span id=\"window_props\">window props<br></span>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -251,6 +253,10 @@ document.getElementById(\"wh_window2\").innerHTML =
 \", h = \" + String(window0.ih) +
 \"; outer: w = \" + String(window0.ow) +
 \", h = \" + String(window0.oh);
+
+document.getElementById(\"window_props\").innerHTML =
+    \"<br>\" + window_prop_list();
+
 </script>
 ");
 
