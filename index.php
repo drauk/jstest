@@ -1,6 +1,6 @@
 <?php
 // http/extra.topology.org/jstest/index.php   2017-12-10   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/index.php 6d3b349aaf 2017-12-10 08:37:12Z Alan U. Kennington $
+// $Id: http/extra.topology.org/jstest/index.php ba5b59c5e4 2017-12-10 10:39:41Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
 <html lang=\"en\"><head>
@@ -15,6 +15,9 @@ pre { color:#000000; background-color:#eeffde;
  border-width:1px; border-style:dotted;
  margin-left:5px; margin-right:5px; text-align:left; padding:3px; }
 pre.plain { background-color:transparent; border-style:none; }
+table.main1 { padding:0px; margin:1px; }
+table.main2 { padding:0px; margin:1px; }
+table.main3 { padding:0px; margin:0px; white-space:nowrap; }
 td, th { padding-left:3pt; padding-right:3pt; }
 --></style>
 <title>javascript test 1</title>
@@ -31,6 +34,74 @@ td, th { padding-left:3pt; padding-right:3pt; }
 //-----------------------------------------------------------------------------
 echo("
 <span id=\"js_okay\">Javascript is off.</span><br>
+<table class=\"main3\" cellspacing=0 cellpadding=0>
+<tr>
+<td>Code name:</td>
+<td><span id=\"js_appCodeName\"></span></td>
+</tr>
+
+<tr>
+<td>App name:</td>
+<td><span id=\"js_appName\"></span></td>
+</tr>
+
+<tr>
+<td>App version:</td>
+<td><span id=\"js_appVersion\"></span></td>
+</tr>
+
+<tr>
+<td>Cookie enabled:</td>
+<td><span id=\"js_cookieEnabled\"></span></td>
+</tr>
+
+<tr>
+<td>Geolocation:</td>
+<td><span id=\"js_geolocation\"></span></td>
+</tr>
+
+<tr>
+<td>Language:</td>
+<td><span id=\"js_language\"></span></td>
+</tr>
+
+<tr>
+<td>On line:</td>
+<td><span id=\"js_onLine\"></span></td>
+</tr>
+
+<tr>
+<td>Platform:</td>
+<td><span id=\"js_platform\"></span></td>
+</tr>
+
+<tr>
+<td>Product:</td>
+<td><span id=\"js_product\"></span></td>
+</tr>
+
+<tr>
+<td>User agent:</td>
+<td><span id=\"js_userAgent\"></span></td>
+
+<tr>
+<td>Java enabled:</td>
+<td><span id=\"js_javaEnabled\"></span></td>
+</tr>
+</table>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p><hr>
+Click <q>set wh</q> to replace <q>original text wh</q> with screen
+width/height.<br>
+<span id=\"wh_screen\">original text wh</span><br>
+
+<button type=\"button\"
+onclick='set_wh();'>set wh</button><br>
+
+Screen: <span id=\"wh_screen2\">screen w/h</span><br>
+
+Window: <span id=\"wh_window2\">window w/h</span><br>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -69,17 +140,6 @@ font = 10px</button><br>
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").style.fontSize = \"20px\";'>text 1
 font = 20px</button><br>
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<p><hr>
-Click <q>set wh</q> to replace <q>original text wh</q> with screen
-width/height.<br>
-<span id=\"wh_screen\">original text wh</span><br>
-
-<button type=\"button\"
-onclick='set_wh();'>set wh</button><br>
-
-<span id=\"wh_screen2\">original text wh</span><br>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -176,6 +236,21 @@ document.getElementById(\"wh_screen2\").innerHTML =
 \", pd = \" + String(screen0.pd);
 // The following line does nothing on my Opera browser.
 // console.log(date0);
+
+// Get window dimensions.
+var window0 = {
+iw: window.innerWidth,
+ih: window.innerHeight,
+ow: window.outerWidth,
+oh: window.outerHeight
+};
+
+// Code to modify an element must be run after the element has appeared.
+document.getElementById(\"wh_window2\").innerHTML =
+\"inner: w = \" + String(window0.iw) +
+\", h = \" + String(window0.ih) +
+\"; outer: w = \" + String(window0.ow) +
+\", h = \" + String(window0.oh);
 </script>
 ");
 

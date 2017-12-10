@@ -1,5 +1,5 @@
 // http/extra.topology.org/jstest/jstest1.js   2017-12-10   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/jstest1.js 6d3b349aaf 2017-12-10 08:37:12Z Alan U. Kennington $
+// $Id: http/extra.topology.org/jstest/jstest1.js ba5b59c5e4 2017-12-10 10:39:41Z Alan U. Kennington $
 // Some Javascript functions.
 // This is totally rubbish test-code, written in haste.
 // Please ignore the code quality!!
@@ -32,7 +32,10 @@ var map1 = {
     "'":    "&#x27;",
     "/":    "&#x2F;"
     };
-return str.replace(/[&<>"'\/]/g, function(s) { return map1[s]});
+if (typeof(str) != "string")
+    return str;
+else
+    return str.replace(/[&<>"'\/]/g, function(s) { return map1[s]});
 }
 
 //----------------------//
@@ -83,8 +86,41 @@ alert("Found str2 = \"" + str2 + "\", str3 = \"" + str3 + "\"");
 //      body_onload     //
 //----------------------//
 function body_onload() {
-document.getElementById("js_okay").innerHTML =
-"Javascript is on.";
+document.getElementById("js_okay").innerHTML = "Javascript is on.";
+document.getElementById("js_appCodeName").innerHTML =
+ "<tt>" + escapeHTML(navigator.appCodeName) + "</tt>";
+document.getElementById("js_appName").innerHTML =
+ "<tt>" + escapeHTML(navigator.appName) + "</tt>";
+document.getElementById("js_appVersion").innerHTML =
+ "<tt>" + escapeHTML(navigator.appVersion) + "</tt>";
+
+// cookieEnabled is boolean.
+document.getElementById("js_cookieEnabled").innerHTML =
+ "<tt>" + escapeHTML(navigator.cookieEnabled) + "</tt>";
+
+// geolocation is a Geolocation object.
+document.getElementById("js_geolocation").innerHTML =
+ "<tt>" + escapeHTML(navigator.geolocation) + "</tt>";
+
+document.getElementById("js_language").innerHTML =
+ "<tt>" + escapeHTML(navigator.language) + "</tt>";
+
+// onLine is boolean.
+document.getElementById("js_onLine").innerHTML =
+ "<tt>" + escapeHTML(navigator.onLine) + "</tt>";
+
+document.getElementById("js_platform").innerHTML =
+ "<tt>" + escapeHTML(navigator.platform) + "</tt>";
+
+// Could be undefined.
+document.getElementById("js_product").innerHTML =
+ "<tt>" + escapeHTML(navigator.product) + "</tt>";
+
+document.getElementById("js_userAgent").innerHTML =
+ "<tt>" + escapeHTML(navigator.userAgent) + "</tt>";
+
+document.getElementById("js_javaEnabled").innerHTML =
+ "<tt>" + escapeHTML(navigator.javaEnabled()) + "</tt>";
 }
 
 //----------------------//
@@ -123,10 +159,46 @@ if (object1.checkValidity() == false) {
 else {
     object1output.innerHTML = "[success]";
     }
+// This should really be a loop of some kind.
 object1validity.innerHTML = "";
+if (object1.validity.customError) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "customError";
+    }
+if (object1.validity.patternMismatch) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "patternMismatch";
+    }
 if (object1.validity.rangeOverflow) {
     if (object1validity.innerHTML != "")
-        object1validity.innerHTML += " ";
+        object1validity.innerHTML += ", ";
     object1validity.innerHTML += "rangeOverflow";
+    }
+if (object1.validity.rangeUnderflow) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "rangeUnderflow";
+    }
+if (object1.validity.tooLong) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "tooLong";
+    }
+if (object1.validity.typeMismatch) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "typeMismatch";
+    }
+if (object1.validity.valueMissing) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "valueMissing";
+    }
+if (object1.validity.valid) {
+    if (object1validity.innerHTML != "")
+        object1validity.innerHTML += ", ";
+    object1validity.innerHTML += "valid";
     }
 }
