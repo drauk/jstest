@@ -16,6 +16,7 @@ body_onload
 form1valid
 input1check
 window_prop_list
+window_doc_prop_list
 -------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------
@@ -211,6 +212,54 @@ var str_wind_props = "";
 for (var i = 0; i < n_wind_props; i += 1) {
     str_wind_props += wind_props[i] + ": " + escapeHTML(window[wind_props[i]])
         + "<br>";
+    }
+return str_wind_props;
+}
+
+//----------------------//
+// window_doc_prop_list //
+//----------------------//
+function window_doc_prop_list() {
+var wind_props1 = [
+    "anchors",
+    "applets",
+    "body",
+    "cookie",
+    "domain",
+    "forms",
+    "images",
+    "links",
+    "referrer",
+    "title",
+    "URL"
+    ];
+var wind_props3 = [
+    "baseURI",
+    "doctype",
+    "documentElement",
+    "documentMode",
+    "documentURI",
+    "domConfig",
+    "embeds",
+    "head",
+    "implementation",
+    "inputEncoding",
+    "lastModified",
+    "readyState",
+    "scripts",
+    "strictErrorChecking"
+    ];
+var n_wind_props1 = wind_props1.length;
+var n_wind_props3 = wind_props3.length;
+var str_wind_props = "DOM 1:<br>";
+for (var i = 0; i < n_wind_props1; i += 1) {
+    str_wind_props += wind_props1[i] + ": " +
+        escapeHTML(window.document[wind_props1[i]]) + "<br>";
+    }
+str_wind_props += "<br>DOM 3:<br>";
+for (var i = 0; i < n_wind_props3; i += 1) {
+    str_wind_props += wind_props3[i] + ": " +
+        escapeHTML(window.document[wind_props3[i]]) + "<br>";
     }
 return str_wind_props;
 }

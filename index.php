@@ -1,5 +1,5 @@
 <?php
-// http/extra.topology.org/jstest/index.php   2017-12-10   Alan U. Kennington.
+// http/extra.topology.org/jstest/index.php   2017-12-12   Alan U. Kennington.
 // $Id: http/extra.topology.org/jstest/index.php 06812be459 2017-12-10 13:19:58Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
@@ -33,7 +33,12 @@ td, th { padding-left:3pt; padding-right:3pt; }
 
 //-----------------------------------------------------------------------------
 echo("
-<span id=\"js_okay\">Javascript is off.</span><br>
+<span id=\"js_okay\">Javascript is off.<br>
+This web page is probably more interesting if you turn Javascript on.</span><br>
+
+<br>
+Properties of your browser:<br>
+
 <table class=\"main3\" cellspacing=0 cellpadding=0>
 <tr>
 <td>Code name:</td>
@@ -90,20 +95,50 @@ echo("
 </tr>
 </table>
 
+(There seems to be no direct way to determine the Javascript version.)<br>
+
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
-Click <q>set wh</q> to replace <q>original text wh</q> with screen
+Properties of your computer screen:<br>
+
+Screen dimensions set when this web page has been loaded:<br>
+<span id=\"wh_screen2\">screen w/h</span><br>
+
+<br>
+Click <q>set screen w/h</q> to replace <q>screen w/h</q> with dynamic screen
 width/height.<br>
-<span id=\"wh_screen\">original text wh</span><br>
 
-<button type=\"button\"
-onclick='set_wh();'>set wh</button><br>
+<button type=\"button\" onclick='set_wh();'>set screen w/h</button>
+<span id=\"wh_screen\">screen w/h</span><br>
 
-Screen dimensions: <span id=\"wh_screen2\">screen w/h</span><br>
+(This is almost pointless because the screen dimensions are fixed usually.<br>
+On the other hand, there are some ways to adjust the perceived screen size.)<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p><hr>
+Properties of your browser window:<br>
 
 Window dimensions: <span id=\"wh_window2\">window w/h</span><br>
 
-Window properties: <span id=\"window_props\">window props<br></span>
+<br>
+Window property list:
+<button type=\"button\"
+onclick='document.getElementById(\"window_props\").innerHTML =
+ \"<br>\" + window_prop_list();'>show</button>
+<button type=\"button\"
+onclick='document.getElementById(\"window_props\").innerHTML =
+ \"<br>\";'>hide</button>
+<span id=\"window_props\"><br></span>
+
+<br>
+Window-document property list:
+<button type=\"button\"
+onclick='document.getElementById(\"window_doc_props\").innerHTML =
+ \"<br>\" + window_doc_prop_list();'>show</button>
+<button type=\"button\"
+onclick='document.getElementById(\"window_doc_props\").innerHTML =
+ \"<br>\";'>hide</button>
+<span id=\"window_doc_props\"><br></span>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -254,8 +289,8 @@ document.getElementById(\"wh_window2\").innerHTML =
 \"; outer: w = \" + String(window0.ow) +
 \", h = \" + String(window0.oh);
 
-document.getElementById(\"window_props\").innerHTML =
-    \"<br>\" + window_prop_list();
+// document.getElementById(\"window_props\").innerHTML =
+//     \"<br>\" + window_prop_list();
 
 </script>
 ");
