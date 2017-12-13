@@ -1,6 +1,6 @@
 <?php
-// http/extra.topology.org/jstest/index.php   2017-12-12   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/index.php 06812be459 2017-12-10 13:19:58Z Alan U. Kennington $
+// http/extra.topology.org/jstest/index.php   2017-12-14   Alan U. Kennington.
+// $Id: http/extra.topology.org/jstest/index.php fb55e22ffb 2017-12-13 16:07:14Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
 <html lang=\"en\"><head>
@@ -25,7 +25,7 @@ td, th { padding-left:3pt; padding-right:3pt; }
 <script src=\"jstest1.js\"></script>
 </head>
 
-<body onload=\"body_onload();\">
+<body onload=\"body_onload();\" onunload=\"body_onunload();\">
 <center>
 <span style=\"font-size:160%;\">javascript test 1<br></span>
 </center>
@@ -140,6 +140,10 @@ onclick='document.getElementById(\"window_doc_props\").innerHTML =
  \"<br>\";'>hide</button>
 <span id=\"window_doc_props\"><br></span>
 
+<br>
+Current geometry of the window after a <q>resize</q>:<br>
+<span id=\"handler_resize_out\"></span>
+
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
 
@@ -162,21 +166,36 @@ prompt-test output: <span id=\"prompt1output\"></span><br>
 <p><hr>
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").innerHTML
-= \"changed text 1\";'>change text 1</button><br>
+= \"changed text 1\";'>change text 1</button>
 
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").innerHTML
-= \"original text 1\";'>restore text 1</button><br>
+= \"original text 1\";'>restore text 1</button>
 
+<br>
 <span id=\"text1\">original text 1</span><br>
 
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").style.fontSize = \"10px\";'>text 1
-font = 10px</button><br>
+font = 10px</button>
 
 <button type=\"button\"
 onclick='document.getElementById(\"text1\").style.fontSize = \"20px\";'>text 1
-font = 20px</button><br>
+font = 20px</button>
+
+<br>
+<button type=\"button\"
+onclick='document.getElementById(\"text1\").style.color=\"red\";'>text 1 colour
+= red</button>
+
+<button type=\"button\"
+onclick='document.getElementById(\"text1\").style.color=\"green\";'>text 1
+colour = green</button>
+
+<button type=\"button\"
+onclick='document.getElementById(\"text1\").style.color=\"black\";'>text 1
+colour = black</button>
+<br>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -289,8 +308,15 @@ document.getElementById(\"wh_window2\").innerHTML =
 \"; outer: w = \" + String(window0.ow) +
 \", h = \" + String(window0.oh);
 
-// document.getElementById(\"window_props\").innerHTML =
-//     \"<br>\" + window_prop_list();
+// Make a field show the current window dimensions.
+// Use kludge for handling versionitis.
+if (window.addEventListener) {
+    window.addEventListener(\"resize\", handler_resize);
+    }
+else {
+    document.getElementById(\"handler_resize_out\").innerHTML =
+        \"window.addEventListener is undefined<br>\";
+    }
 
 </script>
 ");

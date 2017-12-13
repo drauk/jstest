@@ -1,5 +1,5 @@
-// http/extra.topology.org/jstest/jstest1.js   2017-12-11   Alan U. Kennington.
-// $Id: http/extra.topology.org/jstest/jstest1.js 06812be459 2017-12-10 13:19:58Z Alan U. Kennington $
+// http/extra.topology.org/jstest/jstest1.js   2017-12-13   Alan U. Kennington.
+// $Id: http/extra.topology.org/jstest/jstest1.js fb55e22ffb 2017-12-13 16:07:14Z Alan U. Kennington $
 // Some Javascript functions.
 // This is totally rubbish test-code, written in haste.
 // Please ignore the code quality!!
@@ -13,10 +13,12 @@ prompt_test
 set_wh
 test_slice
 body_onload
+body_onunload
 form1valid
 input1check
 window_prop_list
 window_doc_prop_list
+handler_resize
 -------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------
@@ -110,6 +112,16 @@ for (var i = 0; i < n_js_props; i += 1) {
 // "JavaEnabled" is a method.
 document.getElementById("js_javaEnabled").innerHTML =
  "<tt>" + escapeHTML(navigator.javaEnabled()) + "</tt>";
+}
+
+/*-------------------------------------------------------------------------
+This function doesn't seem to be run from "<body unload=....>".
+-------------------------------------------------------------------------*/
+//----------------------//
+//     body_onunload    //
+//----------------------//
+function body_onunload() {
+alert("Web page was unloaded.");
 }
 
 //----------------------//
@@ -251,15 +263,52 @@ var wind_props3 = [
     ];
 var n_wind_props1 = wind_props1.length;
 var n_wind_props3 = wind_props3.length;
+
 var str_wind_props = "DOM 1:<br>";
-for (var i = 0; i < n_wind_props1; i += 1) {
-    str_wind_props += wind_props1[i] + ": " +
-        escapeHTML(window.document[wind_props1[i]]) + "<br>";
+try {
+    for (var i = 0; i < n_wind_props1; i += 1) {
+        str_wind_props += wind_props1[i] + ": " +
+            escapeHTML(window.document[wind_props1[i]]) + "<br>";
+        }
     }
+catch (err) {
+    return "Error 1: " + err.message;
+    }
+
 str_wind_props += "<br>DOM 3:<br>";
-for (var i = 0; i < n_wind_props3; i += 1) {
-    str_wind_props += wind_props3[i] + ": " +
-        escapeHTML(window.document[wind_props3[i]]) + "<br>";
+try {
+    for (var i = 0; i < n_wind_props3; i += 1) {
+        str_wind_props += wind_props3[i] + ": " +
+            escapeHTML(window.document[wind_props3[i]]) + "<br>";
+        }
+    }
+catch (err) {
+    return "Error 3: " + err.message;
     }
 return str_wind_props;
+}
+
+//----------------------//
+//    handler_resize    //
+//----------------------//
+function handler_resize() {
+var object1out = document.getElementById("handler_resize_out");
+object1out.innerHTML = "Fetching data...<br>";
+var str1 = "inner W/H: ("
+    + window["innerWidth"] + ", "
+    + window["innerHeight"]
+    + "), outer W/H: ("
+    + window["outerWidth"] + ", "
+    + window["outerHeight"]
+    + "),<br>\npageOffset X/Y: ("
+    + window["pageXOffset"] + ", "
+    + window["pageYOffset"]
+    + "), screen Left/Top: ("
+    + window["screenLeft"] + ", "
+    + window["screenTop"]
+    + "),<br>\nscroll X/Y: ("
+    + window["scrollX"] + ", "
+    + window["scrollY"] + ")";
+
+object1out.innerHTML = str1 + "<br>";
 }
