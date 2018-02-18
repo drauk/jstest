@@ -1,4 +1,4 @@
-// http/extra.topology.org/jstest/jstest1.js   2017-12-13   Alan U. Kennington.
+// http/extra.topology.org/jstest/jstest1.js   2018-2-18   Alan U. Kennington.
 // $Id: http/extra.topology.org/jstest/jstest1.js fb55e22ffb 2017-12-13 16:07:14Z Alan U. Kennington $
 // Some Javascript functions.
 // This is totally rubbish test-code, written in haste.
@@ -19,6 +19,8 @@ input1check
 window_prop_list
 window_doc_prop_list
 handler_resize
+node_type_string
+get_tree_body
 -------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------
@@ -311,4 +313,57 @@ var str1 = "inner W/H: ("
     + window["scrollY"] + ")";
 
 object1out.innerHTML = str1 + "<br>";
+}
+
+/*-------------------------------------------------------------------------
+This routine returns pre-escaped HTML. No need to escape it.
+-------------------------------------------------------------------------*/
+//----------------------//
+//   node_type_string   //
+//----------------------//
+function node_type_string(obj) {
+var str_node_type = "";
+
+str_node_type += "name: <q><tt>" + escapeHTML(obj.nodeName) + "</tt></q>";
+str_node_type += ", ";
+str_node_type += "type: " + obj.nodeType;
+return str_node_type;
+}
+
+//----------------------//
+//     get_tree_body    //
+//----------------------//
+function get_tree_body() {
+var str_tree = "";
+
+// Get list of "body" objects in this document. Hopefully one and only one.
+var objectBodies = document.getElementsByTagName("body");
+
+// Find out how many "body" objects there are.
+str_tree += "Number of bodies = " + String(objectBodies.length) + "<br>\n";
+// Sanity check.
+if (objectBodies.Length < 1) {
+    return str_tree;
+    }
+
+// Get the first "body" object in the list. Hopefully the only one.
+var objectBody = objectBodies[0];
+str_tree += "Body element type = " + objectBody.nodeType + "<br>\n";
+
+// Get the children of the "body" object.
+var bodyChildren = objectBody.childNodes;
+
+// Find out how many children the "body" object has.
+var nBodyChildren = bodyChildren.length;
+str_tree += "Number of \"body\" children = " + String(nBodyChildren) + "<br>\n";
+
+// List the types
+var str_body_child_types = "";
+for (var i = 0; i < nBodyChildren; i += 1) {
+    str_body_child_types += "node " + String(i) +
+        ": " + node_type_string(bodyChildren[i]) + "<br>\n";
+    }
+str_tree += str_body_child_types;
+
+return str_tree;
 }

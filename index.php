@@ -1,5 +1,5 @@
 <?php
-// http/extra.topology.org/jstest/index.php   2017-12-14   Alan U. Kennington.
+// http/extra.topology.org/jstest/index.php   2017-12-17   Alan U. Kennington.
 // $Id: http/extra.topology.org/jstest/index.php fb55e22ffb 2017-12-13 16:07:14Z Alan U. Kennington $
 
 echo("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
@@ -142,7 +142,7 @@ onclick='document.getElementById(\"window_doc_props\").innerHTML =
 
 <br>
 Current geometry of the window after a <q>resize</q>:<br>
-<span id=\"handler_resize_out\"></span>
+<span id=\"handler_resize_out\">To test this, resize the current window.</span>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
@@ -260,6 +260,18 @@ Firefox 57.0.1 (2017).<br>
 <button onclick=\"input1check()\">Enter</button><br>
 Output: <span id=\"input1output\">[not yet set]</span><br>
 Validity: <span id=\"input1validity\">[not yet set]</span><br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<p><hr>
+Tree of HTML elements below the <q>body</q> element.
+<button type=\"button\"
+onclick='document.getElementById(\"id_tree_body\").innerHTML =
+ get_tree_body() + \"<br>\";'>show</button>
+<button type=\"button\"
+onclick='document.getElementById(\"id_tree_body\").innerHTML =
+ \"\";'>hide</button>
+<br>
+<span id=\"id_tree_body\"></span>
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <p><hr>
